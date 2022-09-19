@@ -59,3 +59,6 @@
 
 [init]
   defaultBranch = master
+[user]
+	email = g.chami90@gmail.com
+	name = Georges Chami
