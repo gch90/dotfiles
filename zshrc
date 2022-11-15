@@ -8,7 +8,11 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 type -a pyenv > /dev/null && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)" && RPROMPT+='[🐍 $(pyenv_prompt_info)]'
 
 # Useful oh-my-zsh plugins for Le Wagon bootcamps
+<<<<<<< HEAD
 plugins=(git gitfast last-working-dir common-aliases zsh-syntax-highlighting history-substring-search colorize pyenv ssh-agent newbranch commit poetry)
+=======
+plugins=(git gitfast last-working-dir common-aliases zsh-syntax-highlighting history-substring-search ssh-agent)
+>>>>>>> 550ae27f9eb290c44fcda1b0171d0c879dfbc255
 
 # (macOS-only) Prevent Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/docs/Analytics.md
 export HOMEBREW_NO_ANALYTICS=1
