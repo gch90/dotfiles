@@ -5,10 +5,10 @@ type -a pyenv > /dev/null && eval "$(pyenv init --path)"
 
 # If it's a macOS
 if [[ `uname` =~ "Darwin" ]]; then
-  alias init='brew services start postgresql && brew services start redis && brew services start elasticsearch-full && brew services start mongodb-community'
+  alias init='brew services start postgresql && brew services start redis-server &&  && brew services start mongodb-community'
 # Else, it's a Linux
 else
-  alias init='sudo service postgresql start && sudo service redis start && sudo service elasticsearch-full start && sudo service mongodb start'
+  alias init='sudo service postgresql start && sudo service redis-server start && sudo chown mongodb:mongodb /var/run/mongod.pid && sudo service mongodb start && sudo service docker start'
 fi
 
 # If it's a macOS
