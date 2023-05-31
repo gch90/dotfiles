@@ -81,4 +81,5 @@
     "security.workspace.trust.untrustedFiles": "open",
     "editor.minimap.enabled": false,
     "window.zoomLevel": 1,
+    "editor.fontFamily": "Inconsolata for powerline",
 }
