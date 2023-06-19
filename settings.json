@@ -4,11 +4,9 @@
         "editor.guides.bracketPairs": false,
         "editor.tabSize": 4
     },
-    "editor.bracketPairColorization.enabled": true,
-    "editor.detectIndentation": false,
+	"editor.bracketPairColorization.enabled": true,
     "editor.fontSize": 14,
     "editor.guides.bracketPairs": true,
-    "editor.multiCursorModifier": "ctrlCmd",
     "editor.renderControlCharacters": true,
     "editor.rulers": [
         80,
@@ -16,7 +14,7 @@
     ],
     "editor.showFoldingControls": "always",
     "editor.snippetSuggestions": "top",
-    "editor.tabSize": 2,
+    "editor.tabSize": 3,
     "emmet.includeLanguages": {
         "erb": "html"
     },
@@ -43,8 +41,7 @@
         "public/packs": true,
         "tmp": true
     },
-    "files.hotExit": "off",
-    "files.insertFinalNewline": true,
+		"files.hotExit": "off",
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
     "files.watcherExclude": {
@@ -77,9 +74,19 @@
     "workbench.settings.openDefaultSettings": true,
     "workbench.settings.useSplitJSON": true,
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.panel.defaultLocation": "right",
     "security.workspace.trust.untrustedFiles": "open",
     "editor.minimap.enabled": false,
     "window.zoomLevel": 1,
-    "editor.fontFamily": "Inconsolata for powerline",
+	"editor.fontFamily": "Inconsolata for powerline",
+	"workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.wrapTabs": true,
+    "explorer.compactFolders": false,
+    "workbench.editor.openSideBySideDirection": "down",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "pdf-preview.default.sidebar": true,
+    "workbench.sideBar.location": "right",
+    "problems.decorations.enabled": false,
+    "terminal.integrated.macOptionClickForcesSelection": true,
+    "pasteAndIndent.selectAfter": true,
+    "editor.hover.delay": 800,
 }
