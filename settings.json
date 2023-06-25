@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "[python]": {
     "editor.bracketPairColorization.enabled": false,
     "editor.guides.bracketPairs": false,
@@ -116,3 +117,96 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode"
 },
 }
+=======
+    "[python]": {
+        "editor.bracketPairColorization.enabled": false,
+        "editor.guides.bracketPairs": false,
+        "editor.tabSize": 4
+    },
+	"editor.bracketPairColorization.enabled": true,
+    "editor.fontSize": 14,
+    "editor.guides.bracketPairs": true,
+    "editor.renderControlCharacters": true,
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "editor.showFoldingControls": "always",
+    "editor.snippetSuggestions": "top",
+    "editor.tabSize": 3,
+    "emmet.includeLanguages": {
+        "erb": "html"
+    },
+    "emmet.showSuggestionsAsSnippets": true,
+    "emmet.triggerExpansionOnTab": true,
+    "explorer.confirmDelete": false,
+    "files.exclude": {
+        "__pycache__": true,
+        "_site": true,
+        ".asset-cache": true,
+        ".bundle": true,
+        ".ipynb_checkpoints": true,
+        ".pytest_cache": true,
+        ".sass-cache": true,
+        ".svn": true,
+        "**/.DS_Store": true,
+        "**/.egg-info": true,
+        "**/.git": true,
+        "build": true,
+        "coverage": true,
+        "dist": true,
+        "log": true,
+        "node_modules": true,
+        "public/packs": true,
+        "tmp": true
+    },
+		"files.hotExit": "off",
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.watcherExclude": {
+        "**/audits/**": true,
+        "**/coverage/**": true,
+        "**/log/**": true,
+        "**/node_modules/**": true,
+        "**/tmp/**": true,
+        "**/vendor/**": true
+    },
+    "notebook.diff.ignoreMetadata": true,
+    "notebook.lineNumbers": "on",
+    "notebook.markup.fontSize": 13,
+    "python.defaultInterpreterPath": "~/.pyenv/shims/python",
+    "python.formatting.provider": "yapf",
+    "python.languageServer": "Pylance",
+    "python.linting.enabled": false,
+    "python.linting.flake8Enabled": false,
+    "python.linting.pylintEnabled": false,
+    "python.terminal.activateEnvironment": false,
+    "ruby.lint": {
+        "rubocop": true
+    },
+    "telemetry.telemetryLevel": "off",
+    "window.restoreWindows": "none",
+    "window.newWindowDimensions": "maximized",
+    "workbench.editor.enablePreview": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.settings.editor": "json",
+    "workbench.settings.openDefaultSettings": true,
+    "workbench.settings.useSplitJSON": true,
+    "workbench.startupEditor": "newUntitledFile",
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.minimap.enabled": false,
+    "window.zoomLevel": 1,
+	"editor.fontFamily": "Inconsolata for powerline",
+	"workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.wrapTabs": true,
+    "explorer.compactFolders": false,
+    "workbench.editor.openSideBySideDirection": "down",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "pdf-preview.default.sidebar": true,
+    "workbench.sideBar.location": "right",
+    "problems.decorations.enabled": false,
+    "terminal.integrated.macOptionClickForcesSelection": true,
+    "pasteAndIndent.selectAfter": true,
+    "editor.hover.delay": 800,
+}
+>>>>>>> 20b6a642a119b67de4c3994b13d0422d18ce1880
