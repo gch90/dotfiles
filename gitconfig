@@ -62,7 +62,5 @@
 [user]
 	email = g.chami90@gmail.com
 	name = Georges Chami
-[safe]
-	directory = /private/etc/lws/projects/b2b_browning
 [diff]
 	ignoreAllSpace = true
