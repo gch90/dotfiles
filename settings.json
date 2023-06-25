@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "[python]": {
     "editor.bracketPairColorization.enabled": false,
     "editor.guides.bracketPairs": false,
@@ -117,7 +116,6 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode"
 },
 }
-=======
     "[python]": {
         "editor.bracketPairColorization.enabled": false,
         "editor.guides.bracketPairs": false,
@@ -209,4 +207,3 @@
     "pasteAndIndent.selectAfter": true,
     "editor.hover.delay": 800,
 }
->>>>>>> 20b6a642a119b67de4c3994b13d0422d18ce1880
