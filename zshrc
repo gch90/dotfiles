@@ -80,4 +80,3 @@ fi
 export PYTHONBREAKPOINT=ipdb.set_trace
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-eval "$(direnv hook zsh)"
