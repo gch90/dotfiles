@@ -14,7 +14,7 @@
     ],
     "editor.showFoldingControls": "always",
     "editor.snippetSuggestions": "top",
-    "editor.tabSize": 3,
+    "editor.tabSize": 2,
     "emmet.includeLanguages": {
         "erb": "html"
     },
@@ -76,7 +76,7 @@
     "workbench.startupEditor": "newUntitledFile",
     "security.workspace.trust.untrustedFiles": "open",
     "editor.minimap.enabled": false,
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 2,
 	"editor.fontFamily": "Inconsolata for powerline",
 	"workbench.editor.highlightModifiedTabs": true,
     "workbench.editor.wrapTabs": true,
@@ -89,4 +89,8 @@
     "terminal.integrated.macOptionClickForcesSelection": true,
     "pasteAndIndent.selectAfter": true,
     "editor.hover.delay": 800,
+    "explorer.sortOrder": "filesFirst",
+    "explorer.fileNesting.expand": false,
+    "workbench.editor.tabSizing": "fixed",
+    "terminal.integrated.tabs.defaultIcon": "three-bars",
 }
