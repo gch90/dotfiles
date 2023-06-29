@@ -60,5 +60,7 @@
 [init]
   defaultBranch = master
 [user]
-	email = georges@lawebshop.ca
+	email = g.chami90@gmail.com
 	name = Georges Chami
+[diff]
+	ignoreAllSpace = true
