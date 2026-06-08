@@ -1,0 +1,28 @@
+# Curated VS Code extensions, installed by install.sh (lines starting with # are ignored).
+# Host-side remote-dev extensions (ms-vscode-remote.*, ms-vscode.remote-*) are
+# intentionally omitted: install those on a host machine, never inside a remote.
+alexcvzz.vscode-sqlite
+anthropic.claude-code
+christian-kohler.npm-intellisense
+christian-kohler.path-intellisense
+dbaeumer.vscode-eslint
+docker.docker
+eamodio.gitlens
+esbenp.prettier-vscode
+github.vscode-pull-request-github
+johnpapa.vscode-peacock
+lokalise.i18n-ally
+ms-azuretools.vscode-containers
+ms-python.python
+ms-python.vscode-pylance
+ms-vsliveshare.vsliveshare
+mxsdev.typescript-explorer
+natizyskunk.sftp
+oxc.oxc-vscode
+pkief.material-icon-theme
+postman.postman-for-vscode
+redhat.vscode-yaml
+styled-components.vscode-styled-components
+thinker.sort-json
+tomoki1207.pdf
+vitest.explorer

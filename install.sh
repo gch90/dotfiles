@@ -61,6 +61,14 @@ for name in settings.json keybindings.json; do
   symlink $PWD/$name $target
 done
 
+# Install the curated VS Code extensions (skips comments and blank lines)
+if command -v code >/dev/null 2>&1 && [ -f "$PWD/vscode-extensions.txt" ]; then
+  echo "-----> Installing VS Code extensions..."
+  grep -vE '^[[:space:]]*(#|$)' "$PWD/vscode-extensions.txt" | while read -r ext; do
+    code --install-extension "$ext"
+  done
+fi
+
 # Symlink SSH config file to the present `config` file for macOS and add SSH passphrase to the keychain
 if [[ `uname` =~ "Darwin" ]]; then
   target=~/.ssh/config
