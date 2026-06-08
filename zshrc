@@ -7,7 +7,11 @@ export DEFAULT_USER=$USER
 
 # Load pyenv (to manage your Python versions)
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-type -a pyenv >/dev/null && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)" && RPROMPT+='[🐍 $(pyenv_prompt_info)]'
+if type -a pyenv >/dev/null; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)" 2>/dev/null   # only works if pyenv-virtualenv is installed
+  RPROMPT+='[🐍 $(pyenv_prompt_info)]'
+fi
 
 # Useful oh-my-zsh plugins for Le Wagon bootcamps
 plugins=(git gitfast last-working-dir common-aliases zsh-syntax-highlighting zsh-autosuggestions history-substring-search colorize pyenv ssh-agent poetry)
