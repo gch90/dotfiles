@@ -55,12 +55,19 @@
   mergeoptions = --no-edit
 
 [pull]
-  rebase = false
+	rebase = true
 
 [init]
-  defaultBranch = master
+	defaultBranch = main
 [user]
 	email = g.chami90@gmail.com
 	name = Georges Chami
 [diff]
 	ignoreAllSpace = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[rebase]
+	autoStash = true
