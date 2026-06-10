@@ -18,3 +18,9 @@ if [[ `uname` =~ "Darwin" ]]; then
 else
 
 fi
+
+# Load nvm in login shells too (not just interactive .zshrc), so GUI apps —
+# VS Code and all its extensions — resolve the nvm default node instead of Homebrew's.
+# Sourced after brew shellenv so nvm's bin is prepended last and wins on PATH.
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
