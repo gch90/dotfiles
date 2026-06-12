@@ -15,6 +15,10 @@ fi
 
 # Useful oh-my-zsh plugins for Le Wagon bootcamps
 plugins=(git gitfast last-working-dir common-aliases zsh-syntax-highlighting zsh-autosuggestions history-substring-search colorize pyenv poetry)
+# ssh-agent: only off macOS. macOS has a launchd/Keychain-backed agent that
+# auto-loads keys (`ssh-add --apple-use-keychain`), so the plugin is redundant
+# there; on Linux/WSL it usefully starts an agent and loads your keys.
+[[ `uname` =~ "Darwin" ]] || plugins+=(ssh-agent)
 
 # (macOS-only) Prevent Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/docs/Analytics.md
 export HOMEBREW_NO_ANALYTICS=1
