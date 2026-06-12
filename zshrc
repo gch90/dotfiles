@@ -14,7 +14,7 @@ if type -a pyenv >/dev/null; then
 fi
 
 # Useful oh-my-zsh plugins for Le Wagon bootcamps
-plugins=(git gitfast last-working-dir common-aliases zsh-syntax-highlighting zsh-autosuggestions history-substring-search colorize pyenv ssh-agent poetry)
+plugins=(git gitfast last-working-dir common-aliases zsh-syntax-highlighting zsh-autosuggestions history-substring-search colorize pyenv poetry)
 
 # (macOS-only) Prevent Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/docs/Analytics.md
 export HOMEBREW_NO_ANALYTICS=1
@@ -31,9 +31,11 @@ unalias lt # we need `lt` for https://github.com/localtunnel/localtunnel
 export PATH="${HOME}/.rbenv/bin:${PATH}" # Needed for Linux/WSL
 type -a rbenv >/dev/null && eval "$(rbenv init -)"
 
-# Load nvm (to manage your node versions)
+# Load nvm (to manage your node versions). zprofile already sources nvm.sh for
+# login shells (so GUI apps see nvm's node); guard here so interactive shells
+# still get it without double-sourcing the (slow) nvm.sh.
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+command -v nvm >/dev/null || { [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; } # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 # Call `nvm use` automatically in a directory with a `.nvmrc` file
@@ -59,10 +61,11 @@ load-nvmrc() {
 type -a nvm >/dev/null && add-zsh-hook chpwd load-nvmrc
 type -a nvm >/dev/null && load-nvmrc
 
-# Rails and Ruby uses the local `bin` folder to store binstubs.
-# So instead of running `bin/rails` like the doc says, just run `rails`
-# Same for `./node_modules/.bin` and nodejs
-export PATH="./bin:./node_modules/.bin:${PATH}:/usr/local/sbin"
+# NOTE: we intentionally do NOT put relative ./bin or ./node_modules/.bin on
+# PATH — running binaries from the current directory lets a malicious repo
+# shadow system commands. Use `bundle exec rails` for Ruby binstubs; npm/pnpm
+# scripts already resolve ./node_modules/.bin on their own.
+export PATH="${PATH}:/usr/local/sbin"
 
 # Store your own aliases in the ~/.aliases file and load the here.
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
@@ -71,13 +74,14 @@ export PATH="./bin:./node_modules/.bin:${PATH}:/usr/local/sbin"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-export BUNDLER_EDITOR=code
-export EDITOR=code
+# `--wait` makes `code` block until the file/tab is closed, so terminal git
+# (commit messages, rebases) and `bundle`/EDITOR-driven flows work correctly.
+export BUNDLER_EDITOR="code --wait"
+export EDITOR="code --wait"
 
 export PATH="$HOME/.poetry/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+# pyenv is already initialized near the top of this file (and in .zprofile);
+# no second `pyenv init -` needed here.
 
 export PATH="$HOME/bin:$PATH"
 
