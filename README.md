@@ -12,7 +12,6 @@ Installed automatically by `install.sh` on macOS (via [Homebrew](https://brew.sh
 
 - [Ghostty](https://ghostty.org/) — fast, native, GPU-accelerated terminal. Config: `ghostty/config` → `~/.config/ghostty/config`.
 - [herdr](https://herdr.dev/) — agent-aware terminal multiplexer for running and tracking multiple AI agents (Claude Code, Copilot, …). Run with `herdr` or the `agents` alias.
-- [Zellij](https://zellij.dev/) — mature tmux-alternative, kept as a fallback multiplexer.
 - JetBrainsMono Nerd Font — used by Ghostty.
 
 The `Brewfile` also covers the core Le Wagon toolset (git, gh, wget, imagemagick, jq, openssl), `rbenv` (Ruby manager only — no Ruby version installed), `postgresql@18`, and VS Code. Node/TS is managed via `nvm` (loaded in `.zshrc`), and Slack is installed manually via its GUI.

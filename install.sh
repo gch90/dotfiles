@@ -96,7 +96,7 @@ if [[ `uname` =~ "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
 
-  # Install the terminal stack from the Brewfile (ghostty, herdr, zellij, font).
+  # Install the terminal stack from the Brewfile (ghostty, herdr, font).
   if [ -f "$PWD/Brewfile" ]; then
     echo "-----> Installing terminal stack from Brewfile..."
     brew bundle --file="$PWD/Brewfile"
@@ -120,7 +120,8 @@ if [[ `uname` =~ "Darwin" ]]; then
   fi
 fi
 
-# Refresh the current terminal with the newly installed configuration
-exec zsh
+echo "👌 All set! Reloading your shell..."
 
-echo "👌 Carry on with git setup!"
+# Refresh the current terminal with the newly installed configuration.
+# NOTE: must be the LAST line — exec replaces this process, so nothing below runs.
+exec zsh

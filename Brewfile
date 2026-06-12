@@ -8,9 +8,8 @@ cask "ghostty"                          # fast, native, GPU-accelerated terminal
 # === Nerd Font (Ghostty + powerline/devicons in prompts) ===
 cask "font-jetbrains-mono-nerd-font"
 
-# === Multi-agent / multiplexers ===
+# === Multi-agent multiplexer ===
 brew "herdr"                            # agent-aware terminal multiplexer (Claude Code, Copilot, ...)
-brew "zellij"                           # mature tmux-alternative, kept as a fallback multiplexer
 
 # === Core CLI utilities (Le Wagon defaults) ===
 brew "git"
