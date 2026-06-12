@@ -23,6 +23,14 @@ symlink() {
   ln -sfn "$file" "$link"
 }
 
+# --- Log this run to a timestamped file, mirrored live to the terminal ---
+LOG_DIR="$HOME/.dotfiles-logs"
+mkdir -p "$LOG_DIR"
+LOG="$LOG_DIR/install-$(date +%Y%m%d-%H%M%S).log"
+exec 3>&1 4>&2                # save the real stdout/stderr for the handoff
+exec > >(tee "$LOG") 2>&1     # mirror everything below into the log
+echo "-----> Logging this run to $LOG"
+
 # === 1. Base toolchain FIRST, so git/gh/version-managers/postgres exist before
 #        any step below relies on them ===
 if [[ `uname` =~ "Darwin" ]]; then
@@ -168,5 +176,6 @@ if [ -d "$WIN_HOME" ] && [ -f "$PWD/wezterm/wezterm.lua" ] && [ ! -e "$WIN_HOME/
   cp "$PWD/wezterm/wezterm.lua" "$WIN_HOME/.wezterm.lua"
 fi
 
-echo "👌 All set! Reloading your shell..."
-exec zsh -l   # login shell so .zprofile (env/PATH) loads too; must be last
+echo "👌 All set! Full log: $LOG"
+exec 1>&3 2>&4 3>&- 4>&-   # stop logging (flush the tee) before the handoff
+exec zsh -l                # login shell so .zprofile (env/PATH) loads too; must be last
