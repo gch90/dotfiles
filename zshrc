@@ -8,11 +8,10 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 if type -a pyenv >/dev/null; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)" 2>/dev/null   # no-op unless pyenv-virtualenv is installed
-  RPROMPT+='[🐍 $(pyenv_prompt_info)]'
 fi
 
 # oh-my-zsh plugins
-plugins=(git gitfast last-working-dir common-aliases zsh-syntax-highlighting zsh-autosuggestions history-substring-search colorize pyenv poetry)
+plugins=(git gitfast last-working-dir common-aliases zsh-syntax-highlighting zsh-autosuggestions history-substring-search colorize)
 # ssh-agent only off macOS (macOS's Keychain agent already auto-loads keys)
 [[ `uname` =~ "Darwin" ]] || plugins+=(ssh-agent)
 

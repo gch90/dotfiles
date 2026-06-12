@@ -17,7 +17,6 @@ export EDITOR="code --wait"
 
 export PYTHONBREAKPOINT=ipdb.set_trace
 
-export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
