@@ -145,5 +145,14 @@ if [[ `uname` =~ "Darwin" ]]; then
   fi
 fi
 
+# === 9. WSL: place the WezTerm config on the Windows host. Windows apps can't
+#        follow WSL symlinks, so we copy it. WezTerm itself is installed on
+#        Windows (e.g. `winget install wez.wezterm`); see the README. ===
+WIN_HOME="/mnt/c/Users/gcham"
+if [ -d "$WIN_HOME" ] && [ -f "$PWD/wezterm/wezterm.lua" ] && [ ! -e "$WIN_HOME/.wezterm.lua" ]; then
+  echo "-----> Copying WezTerm config to $WIN_HOME/.wezterm.lua"
+  cp "$PWD/wezterm/wezterm.lua" "$WIN_HOME/.wezterm.lua"
+fi
+
 echo "👌 All set! Reloading your shell..."
 exec zsh -l   # login shell so .zprofile (env/PATH) loads too; must be last

@@ -38,3 +38,16 @@ zsh install.sh
 ```
 
 It then apt-installs the toolchain (git, gh, postgres, and pyenv's build dependencies), installs oh-my-zsh + plugins, and installs the version managers (`nvm`, `pyenv`, and `rbenv` via git since there's no Homebrew). The macOS-only bits — Ghostty, herdr, and the SSH/keychain config — are skipped on WSL. VS Code runs from the Windows host via the Remote-WSL extension (which provides the `code` shim), so it isn't in the `Aptfile`.
+
+### Terminal (WezTerm)
+
+Ghostty has no Windows build, so on Windows the terminal is [WezTerm](https://wezterm.org/) — GPU-accelerated, with native splits and a config (`wezterm/wezterm.lua`) that mirrors the Ghostty setup (JetBrains Mono Nerd Font, Catppuccin auto light/dark, the same split keybinds under `CTRL+SHIFT`).
+
+Install it **on Windows** (not inside WSL) and add the font:
+
+```powershell
+winget install wez.wezterm
+winget install --id DEVCOM.JetBrainsMonoNerdFont   # or download from nerdfonts.com
+```
+
+`install.sh` copies `wezterm/wezterm.lua` to `C:\Users\<you>\.wezterm.lua` (a copy, not a symlink — Windows apps don't follow WSL symlinks). To update it later, edit the repo copy and delete the Windows one, then re-run. The config launches straight into the `WSL:Ubuntu` domain — change that line if your distro is named differently (`wsl -l`).
