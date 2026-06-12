@@ -1,0 +1,50 @@
+# Ghostty configuration
+# Docs: https://ghostty.org/docs/config
+# Reload in-app with: cmd+shift+,  (reload_config)
+
+# --- Font ---
+# Requires a Nerd Font (installed via the Brewfile: font-jetbrains-mono-nerd-font)
+font-family = "JetBrainsMono Nerd Font"
+font-size = 14
+font-thicken = true
+
+# --- Theme ---
+# Follows the macOS system appearance (light/dark). Both are bundled with Ghostty.
+theme = light:catppuccin-latte,dark:catppuccin-mocha
+
+# --- Window ---
+window-padding-x = 8
+window-padding-y = 6
+window-padding-balance = true
+background-opacity = 0.97
+background-blur = true
+macos-titlebar-style = transparent
+window-save-state = always
+
+# --- Cursor ---
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor,sudo,title
+
+# --- Scrollback & behaviour ---
+scrollback-limit = 100000
+copy-on-select = clipboard
+mouse-hide-while-typing = true
+confirm-close-surface = true
+
+# Treat the left Option key as Alt so word-wise shortcuts work in shells/TUIs,
+# keep the right Option for typing accented characters.
+macos-option-as-alt = left
+
+# --- Keybindings ---
+# Native splits/tabs for quick one-off use. When running herdr inside Ghostty,
+# let herdr (prefix ctrl+b) own pane management; these stay out of its way.
+keybind = super+enter=toggle_fullscreen
+keybind = super+d=new_split:right
+keybind = super+shift+d=new_split:down
+keybind = super+w=close_surface
+keybind = super+ctrl+h=goto_split:left
+keybind = super+ctrl+l=goto_split:right
+keybind = super+ctrl+k=goto_split:top
+keybind = super+ctrl+j=goto_split:bottom
+keybind = super+shift+comma=reload_config

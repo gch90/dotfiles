@@ -14,3 +14,6 @@ alias gce="gh copilot explain"
 alias idea="open -a 'IntelliJ IDEA'"
 alias claude-pers="CLAUDE_CONFIG_DIR=~/.claude-pers claude"
 
+# Multi-agent terminal multiplexer (herdr) — herd all your agents in one place
+alias agents="herdr"
+
