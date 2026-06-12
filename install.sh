@@ -111,7 +111,10 @@ for name in settings.json keybindings.json; do
   symlink "$PWD/$name" "$target"
 done
 
-# The VS Code cask doesn't put `code` on PATH, so fall back to the app bundle
+# Resolve the `code` CLI. macOS: the cask doesn't add it to PATH, so fall back
+# to the app bundle. WSL: it's the Remote-WSL shim, only on PATH once VS Code
+# (Windows) + the Remote-WSL extension are installed and the WSL window is open
+# — i.e. it's reliably present in VS Code's integrated terminal.
 CODE_BIN="$(command -v code || true)"
 [[ -z "$CODE_BIN" && `uname` =~ "Darwin" ]] && CODE_BIN="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
 if [ -x "$CODE_BIN" ] && [ -f "$PWD/vscode-extensions.txt" ]; then
@@ -119,6 +122,14 @@ if [ -x "$CODE_BIN" ] && [ -f "$PWD/vscode-extensions.txt" ]; then
   grep -vE '^[[:space:]]*(#|$)' "$PWD/vscode-extensions.txt" | while read -r ext; do
     "$CODE_BIN" --install-extension "$ext"
   done
+elif [ -f "$PWD/vscode-extensions.txt" ]; then
+  echo "⚠️  'code' CLI not found — skipping VS Code extensions (settings were still linked)."
+  if [[ `uname` =~ "Darwin" ]]; then
+    echo "    Install VS Code, then re-run: zsh install.sh"
+  else
+    echo "    On WSL: install VS Code on Windows + the 'Remote - WSL' extension,"
+    echo "    then re-run this from VS Code's WSL integrated terminal (where 'code' is on PATH)."
+  fi
 fi
 
 # === 7. macOS: SSH config + add the key passphrase to the keychain ===
