@@ -9,15 +9,18 @@ backup() {
   fi
 }
 
-# Symlink file -> link, creating the parent directory if it doesn't exist
+# Symlink file -> link (idempotent): no-op if it already points where we want,
+# otherwise create the parent dir and (re)point the link — replacing a stale or
+# broken symlink so re-runs never error with "File exists".
 symlink() {
   file=$1
   link=$2
-  if [ ! -e "$link" ]; then
-    mkdir -p "$(dirname "$link")"
-    echo "-----> Symlinking your new $link"
-    ln -s "$file" "$link"
+  if [ -L "$link" ] && [ "$(readlink "$link")" = "$file" ]; then
+    return
   fi
+  mkdir -p "$(dirname "$link")"
+  echo "-----> Symlinking $link"
+  ln -sfn "$file" "$link"
 }
 
 # === 1. Base toolchain FIRST, so git/gh/version-managers/postgres exist before
