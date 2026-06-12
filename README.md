@@ -23,7 +23,7 @@ Run `zsh install.sh`. On macOS it is self-contained and idempotent — re-runnin
 1. Bootstraps Homebrew (if missing) and runs `brew bundle`.
 2. Installs `oh-my-zsh`, then its external plugins (autosuggestions, syntax-highlighting).
 3. Installs the version managers it doesn't get from Homebrew: `nvm` → `~/.nvm` (node/TS, the focus) and `pyenv` → `~/.pyenv`. `rbenv` comes from the Brewfile.
-4. Symlinks the dotfiles, VS Code settings/keybindings, the Ghostty config, and the SSH config; adds the SSH key to the keychain.
+4. Symlinks the dotfiles, VS Code settings/keybindings, and the Ghostty config; adds the SSH key to the keychain. The SSH config is only symlinked if you don't already have a `~/.ssh/config` (an existing one is left untouched, not replaced).
 5. Installs the curated VS Code extensions and seeds a default `~/.config/herdr/config.toml`.
 
 Environment/PATH lives in `.zprofile` (so GUI apps like VS Code inherit it); interactive-only setup (prompt, aliases, plugins, direnv, sdkman) lives in `.zshrc`.

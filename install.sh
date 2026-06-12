@@ -140,11 +140,19 @@ elif [ -f "$PWD/vscode-extensions.txt" ]; then
   fi
 fi
 
-# === 7. macOS: SSH config + add the key passphrase to the keychain ===
+# === 7. macOS: SSH config + add the key to the keychain ===
+# Unlike the other dotfiles we do NOT take over an existing ~/.ssh/config — it
+# often holds custom per-host rules/keys, and the repo's `Host *` block would
+# change auth for every host. Only symlink when there's no config yet.
 if [[ `uname` =~ "Darwin" ]]; then
-  target=~/.ssh/config
-  backup "$target"
-  symlink "$PWD/config" "$target"
+  if [ ! -e ~/.ssh/config ] && [ ! -L ~/.ssh/config ]; then
+    symlink "$PWD/config" ~/.ssh/config
+  elif [ -L ~/.ssh/config ] && [ "$(readlink ~/.ssh/config)" = "$PWD/config" ]; then
+    : # already linked to the repo — nothing to do
+  else
+    echo "⚠️  ~/.ssh/config already exists — leaving it untouched."
+    echo "    To adopt the repo's keychain settings, merge them from: $PWD/config"
+  fi
   [ -f ~/.ssh/id_ed25519 ] && ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 fi
 
