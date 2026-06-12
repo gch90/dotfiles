@@ -9,8 +9,9 @@ font-size = 14
 font-thicken = true
 
 # --- Theme ---
-# Follows the macOS system appearance (light/dark). Both are bundled with Ghostty.
-theme = light:catppuccin-latte,dark:catppuccin-mocha
+# Follows the macOS system appearance (light/dark). Both are bundled with
+# Ghostty — names must match `ghostty +list-themes` exactly (note the spaces).
+theme = light:Catppuccin Latte,dark:Catppuccin Mocha
 
 # --- Window ---
 window-padding-x = 8
