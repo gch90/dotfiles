@@ -23,6 +23,14 @@ symlink() {
   ln -sfn "$file" "$link"
 }
 
+# Record a notable warning: print it now (prominently) AND keep it so the run
+# ends with a summary, so it can't scroll past during the long install.
+WARNINGS=()
+warn() {
+  WARNINGS+="$1"
+  echo "⚠️  $1"
+}
+
 # --- Log this run to a timestamped file, mirrored live to the terminal ---
 LOG_DIR="$HOME/.dotfiles-logs"
 mkdir -p "$LOG_DIR"
@@ -131,7 +139,7 @@ if [ -x "$CODE_BIN" ] && [ -f "$PWD/vscode-extensions.txt" ]; then
     "$CODE_BIN" --install-extension "$ext"
   done
 elif [ -f "$PWD/vscode-extensions.txt" ]; then
-  echo "⚠️  'code' CLI not found — skipping VS Code extensions (settings were still linked)."
+  warn "'code' CLI not found — VS Code extensions were skipped (settings were still linked)."
   if [[ `uname` =~ "Darwin" ]]; then
     echo "    Install VS Code, then re-run: zsh install.sh"
   else
@@ -150,8 +158,8 @@ if [[ `uname` =~ "Darwin" ]]; then
   elif [ -L ~/.ssh/config ] && [ "$(readlink ~/.ssh/config)" = "$PWD/config" ]; then
     : # already linked to the repo — nothing to do
   else
-    echo "⚠️  ~/.ssh/config already exists — leaving it untouched."
-    echo "    To adopt the repo's keychain settings, merge them from: $PWD/config"
+    warn "~/.ssh/config already existed — left untouched, so the repo's SSH settings were NOT applied."
+    echo "    To adopt them, merge from: $PWD/config"
   fi
   [ -f ~/.ssh/id_ed25519 ] && ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 fi
@@ -184,6 +192,15 @@ if [ -d "$WIN_HOME" ] && [ -f "$PWD/wezterm/wezterm.lua" ] && [ ! -e "$WIN_HOME/
   cp "$PWD/wezterm/wezterm.lua" "$WIN_HOME/.wezterm.lua"
 fi
 
-echo "👌 All set! Full log: $LOG"
+echo "👌 All set!"
+if (( ${#WARNINGS} )); then
+  echo
+  echo "═══════════════════════════════════════════════════════════════════"
+  echo "  ⚠️  ${#WARNINGS} item(s) need your attention (also saved in the log):"
+  for w in "${WARNINGS[@]}"; do echo "    • $w"; done
+  echo "═══════════════════════════════════════════════════════════════════"
+  echo
+fi
+echo "Full log: $LOG"
 exec 1>&3 2>&4 3>&- 4>&-   # stop logging (flush the tee) before the handoff
 exec zsh -l                # login shell so .zprofile (env/PATH) loads too; must be last
