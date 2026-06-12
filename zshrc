@@ -65,66 +65,16 @@ load-nvmrc() {
 type -a nvm >/dev/null && add-zsh-hook chpwd load-nvmrc
 type -a nvm >/dev/null && load-nvmrc
 
-# NOTE: we intentionally do NOT put relative ./bin or ./node_modules/.bin on
-# PATH — running binaries from the current directory lets a malicious repo
-# shadow system commands. Use `bundle exec rails` for Ruby binstubs; npm/pnpm
-# scripts already resolve ./node_modules/.bin on their own.
-export PATH="${PATH}:/usr/local/sbin"
+# Environment & PATH live in .zprofile so GUI-launched apps (VS Code etc.)
+# inherit them — GUI apps read the login environment, not .zshrc. What stays
+# below is interactive-only: things that hook into the live shell.
 
-# Store your own aliases in the ~/.aliases file and load the here.
+# Store your own aliases in the ~/.aliases file and load them here.
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
-# Encoding stuff for the terminal
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
-# `--wait` makes `code` block until the file/tab is closed, so terminal git
-# (commit messages, rebases) and `bundle`/EDITOR-driven flows work correctly.
-export BUNDLER_EDITOR="code --wait"
-export EDITOR="code --wait"
-
-export PATH="$HOME/.poetry/bin:$PATH"
-# pyenv is already initialized near the top of this file (and in .zprofile);
-# no second `pyenv init -` needed here.
-
-export PATH="$HOME/bin:$PATH"
-
-# Set ipdb as the default Python debugger
-export PYTHONBREAKPOINT=ipdb.set_trace
-
-export PATH="$HOME/.local/bin:$PATH"
-
-# direnv is only set up on some machines; guard so we don't error on others
+# direnv installs a precmd hook into the interactive shell, so it must load
+# here (not in .zprofile). Guarded so it's a no-op where direnv isn't installed.
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
-
-if [[ `uname` =~ "Darwin" ]]; then
-  # --- macOS only ---
-  export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-  export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-
-  # pnpm
-  export PNPM_HOME="$HOME/Library/pnpm"
-  case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-  esac
-
-  # Windsurf
-  export PATH="$HOME/.codeium/windsurf/bin:$PATH"
-else
-  # --- Linux / WSL only ---
-  export PATH="$HOME/.npm-global/bin:$PATH"
-  [[ -n "$GEM_HOME" ]] && export PATH="$PATH:$GEM_HOME/bin"
-
-  # Open browser links from WSL in the Windows-side Chrome
-  export BROWSER="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
-  export GH_BROWSER="'/mnt/c/Program Files/Google/Chrome/Application/chrome.exe'"
-
-  # WSL: the Windows VS Code `bin` dir is no longer auto-appended to PATH once
-  # systemd is enabled (PAM resets PATH from /etc/environment), so add it back.
-  [[ -d "/mnt/c/Users/gcham/AppData/Local/Programs/Microsoft VS Code/bin" ]] && \
-    export PATH="$PATH:/mnt/c/Users/gcham/AppData/Local/Programs/Microsoft VS Code/bin"
-fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
