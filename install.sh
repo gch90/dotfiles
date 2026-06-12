@@ -20,9 +20,10 @@ symlink() {
   fi
 }
 
-# === 1. macOS: Homebrew + Brewfile FIRST, so git/gh/code/rbenv/postgres/
-#        ghostty/herdr/font exist before any step below relies on them ===
+# === 1. Base toolchain FIRST, so git/gh/version-managers/postgres exist before
+#        any step below relies on them ===
 if [[ `uname` =~ "Darwin" ]]; then
+  # macOS: Homebrew + Brewfile (also installs ghostty/herdr/font/VS Code)
   if ! command -v brew >/dev/null 2>&1; then
     echo "-----> Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -31,6 +32,24 @@ if [[ `uname` =~ "Darwin" ]]; then
   if [ -f "$PWD/Brewfile" ]; then
     echo "-----> Installing packages from Brewfile..."
     brew bundle --file="$PWD/Brewfile"
+  fi
+elif command -v apt-get >/dev/null 2>&1; then
+  # Debian/Ubuntu/WSL: apt (mirrors the Brewfile via the Aptfile)
+  echo "-----> Installing packages with apt..."
+  sudo apt-get update
+  sudo apt-get install -y curl wget   # ensure we can fetch the gh signing key
+  # GitHub CLI ships from its own apt repo; add it once.
+  if ! command -v gh >/dev/null 2>&1; then
+    sudo mkdir -p -m 755 /etc/apt/keyrings
+    wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+      | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+    sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+      | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    sudo apt-get update
+  fi
+  if [ -f "$PWD/Aptfile" ]; then
+    grep -vE '^[[:space:]]*(#|$)' "$PWD/Aptfile" | xargs sudo apt-get install -y
   fi
 fi
 
@@ -50,8 +69,8 @@ for plugin in zsh-autosuggestions zsh-syntax-highlighting; do
   fi
 done
 
-# === 4. Version managers (rbenv comes from the Brewfile). nvm + pyenv install
-#        into ~/.nvm and ~/.pyenv; our zprofile/zshrc already source them ===
+# === 4. Version managers. nvm -> ~/.nvm, pyenv -> ~/.pyenv (zprofile/zshrc
+#        already source them). rbenv: Homebrew on macOS, git clone on Linux ===
 if [ ! -d "$HOME/.nvm" ]; then
   echo "-----> Installing nvm..."
   git clone https://github.com/nvm-sh/nvm.git "$HOME/.nvm"
@@ -60,6 +79,11 @@ fi
 if [ ! -d "$HOME/.pyenv" ]; then
   echo "-----> Installing pyenv..."
   curl -fsSL https://pyenv.run | bash
+fi
+if [[ ! `uname` =~ "Darwin" ]] && [ ! -d "$HOME/.rbenv" ]; then
+  echo "-----> Installing rbenv..."
+  git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
+  git clone https://github.com/rbenv/ruby-build.git "$HOME/.rbenv/plugins/ruby-build"
 fi
 
 # === 5. Symlink dotfiles to ~/.<name> (backing up any real file first) ===

@@ -1,0 +1,37 @@
+# Aptfile — Debian/Ubuntu (incl. WSL) package list, installed by install.sh.
+# Comments and blank lines are ignored. The GitHub CLI apt repo is added by
+# install.sh before this runs. VS Code is NOT here — on WSL it runs from the
+# Windows host via the Remote-WSL extension, which provides the `code` shim.
+
+# Shell
+zsh
+
+# Core CLI (Le Wagon defaults)
+git
+gh
+curl
+wget
+jq
+imagemagick
+
+# Build toolchain + pyenv's Python-build dependencies
+# (https://github.com/pyenv/pyenv/wiki#suggested-build-environment)
+build-essential
+libssl-dev
+zlib1g-dev
+libbz2-dev
+libreadline-dev
+libsqlite3-dev
+libncursesw5-dev
+xz-utils
+tk-dev
+libxml2-dev
+libxmlsec1-dev
+libffi-dev
+liblzma-dev
+
+# Database
+postgresql
+
+# direnv (referenced by zshrc; optional)
+direnv

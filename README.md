@@ -27,3 +27,14 @@ Run `zsh install.sh`. On macOS it is self-contained and idempotent — re-runnin
 5. Installs the curated VS Code extensions and seeds a default `~/.config/herdr/config.toml`.
 
 Environment/PATH lives in `.zprofile` (so GUI apps like VS Code inherit it); interactive-only setup (prompt, aliases, plugins, direnv, sdkman) lives in `.zshrc`.
+
+## WSL / Ubuntu install
+
+The same `install.sh` is self-contained on Debian/Ubuntu (including WSL), driven by the `Aptfile` instead of the `Brewfile`. Because the script runs under zsh, install zsh first:
+
+```bash
+sudo apt update && sudo apt install -y zsh
+zsh install.sh
+```
+
+It then apt-installs the toolchain (git, gh, postgres, and pyenv's build dependencies), installs oh-my-zsh + plugins, and installs the version managers (`nvm`, `pyenv`, and `rbenv` via git since there's no Homebrew). The macOS-only bits — Ghostty, herdr, and the SSH/keychain config — are skipped on WSL. VS Code runs from the Windows host via the Remote-WSL extension (which provides the `code` shim), so it isn't in the `Aptfile`.
