@@ -64,3 +64,6 @@ command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 # SDKMAN must stay last
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Use the MFA session profile so AWS SDK / varlock can read MFA-gated secrets (e.g. /debug Langfuse keys)
+export AWS_PROFILE=compa-mfa

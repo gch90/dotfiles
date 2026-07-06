@@ -399,4 +399,17 @@
   "security.allowedUNCHosts": [
     "wsl.localhost"
   ],
+  "chat.instructionsFilesLocations": {
+    ".github/instructions": true,
+    ".claude/rules": true,
+    "~/.copilot/instructions": true,
+    "~/.claude/rules": true,
+    "/var/folders/ml/5cyp7slj7bx_ltpv3dm0ybc40000gn/T/postman-collections-post-response.instructions.md": true,
+    "/var/folders/ml/5cyp7slj7bx_ltpv3dm0ybc40000gn/T/postman-collections-pre-request.instructions.md": true,
+    "/var/folders/ml/5cyp7slj7bx_ltpv3dm0ybc40000gn/T/postman-folder-post-response.instructions.md": true,
+    "/var/folders/ml/5cyp7slj7bx_ltpv3dm0ybc40000gn/T/postman-folder-pre-request.instructions.md": true,
+    "/var/folders/ml/5cyp7slj7bx_ltpv3dm0ybc40000gn/T/postman-http-request-post-response.instructions.md": true,
+    "/var/folders/ml/5cyp7slj7bx_ltpv3dm0ybc40000gn/T/postman-http-request-pre-request.instructions.md": true
+  },
+  "extensions.ignoreRecommendations": true,
 }
