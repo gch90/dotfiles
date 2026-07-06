@@ -1,6 +1,6 @@
 -- WezTerm config — the Windows/WSL terminal (macOS keeps ghostty/config).
--- Mirrors the Ghostty setup: JetBrains Mono Nerd Font, Catppuccin auto
--- light/dark, padding, translucency, and the same split keybindings.
+-- Mirrors the Ghostty setup: JetBrains Mono Nerd Font, iTerm2 Default theme,
+-- padding, translucency, and the same split keybindings.
 -- Lives at C:\Users\<you>\.wezterm.lua (install.sh copies it there from WSL).
 local wezterm = require("wezterm")
 local act = wezterm.action
@@ -12,16 +12,21 @@ config.default_domain = "WSL:Ubuntu"
 
 -- Font — install "JetBrainsMono Nerd Font" on the Windows side (see README)
 config.font = wezterm.font("JetBrainsMono Nerd Font")
-config.font_size = 14.0
+config.font_size = 12.0
 
--- Theme: follow the Windows light/dark appearance (Catppuccin Latte / Mocha)
-local function scheme_for(appearance)
-  if appearance:find("Dark") then
-    return "Catppuccin Mocha"
-  end
-  return "Catppuccin Latte"
-end
-config.color_scheme = scheme_for(wezterm.gui.get_appearance())
+-- Theme: iTerm2 Default — same as the Ghostty config, spelled out
+-- explicitly so it doesn't depend on WezTerm's bundled scheme names.
+config.colors = {
+  foreground = "#C7C7C7",
+  background = "#000000",
+  cursor_bg = "#C7C7C7",
+  cursor_border = "#C7C7C7",
+  cursor_fg = "#000000",
+  selection_bg = "#B5D5FF",
+  selection_fg = "#000000",
+  ansi = { "#000000", "#C91B00", "#00C200", "#C7C400", "#0225C7", "#CA30C7", "#00C5C7", "#C7C7C7" },
+  brights = { "#686868", "#FF6E67", "#5FFA68", "#FFFC67", "#6871FF", "#FF77FF", "#60FDFF", "#FFFFFF" },
+}
 
 -- Window
 config.window_padding = { left = 8, right = 8, top = 6, bottom = 6 }
