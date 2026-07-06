@@ -37,7 +37,7 @@ sudo apt update && sudo apt install -y zsh
 zsh install.sh
 ```
 
-It then apt-installs the toolchain (git, gh, postgres, and pyenv's build dependencies), installs oh-my-zsh + plugins, and installs the version managers (`nvm`, `pyenv`, and `rbenv` via git since there's no Homebrew). The macOS-only bits — Ghostty, herdr, and the SSH/keychain config — are skipped on WSL. VS Code runs from the Windows host via the Remote-WSL extension (which provides the `code` shim), so it isn't in the `Aptfile`.
+It then apt-installs the toolchain (git, gh, postgres, and pyenv's build dependencies), installs oh-my-zsh + plugins, and installs the version managers (`nvm`, `pyenv`, and `rbenv` via git since there's no Homebrew). herdr is installed via its official installer (`https://herdr.dev/install.sh` → `~/.local/bin`) and configured the same as on macOS. The macOS-only bits — Ghostty and the SSH/keychain config — are skipped on WSL. VS Code runs from the Windows host via the Remote-WSL extension (which provides the `code` shim), so it isn't in the `Aptfile`.
 
 ### Terminal (WezTerm)
 

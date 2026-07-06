@@ -164,23 +164,30 @@ if [[ `uname` =~ "Darwin" ]]; then
   [ -f ~/.ssh/id_ed25519 ] && ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 fi
 
-# === 8. macOS terminal stack config: Ghostty + herdr ===
+# === 8. Terminal stack config: Ghostty (macOS) + herdr (all platforms) ===
 if [[ `uname` =~ "Darwin" ]]; then
   backup "$HOME/.config/ghostty/config"
   symlink "$PWD/ghostty/config" "$HOME/.config/ghostty/config"
+fi
 
-  # herdr: seed a default config if missing, then wire up agent integrations
-  if command -v herdr >/dev/null 2>&1; then
-    HERDR_CONFIG="$HOME/.config/herdr/config.toml"
-    if [ ! -e "$HERDR_CONFIG" ]; then
-      echo "-----> Seeding herdr default config..."
-      mkdir -p "$(dirname "$HERDR_CONFIG")"
-      herdr --default-config > "$HERDR_CONFIG"
-    fi
-    echo "-----> Installing herdr agent integrations..."
-    herdr integration install claude 2>/dev/null
-    herdr integration install copilot 2>/dev/null
+# herdr: Brewfile installs it on macOS; on Linux use the official installer
+# (puts the binary in ~/.local/bin, which .zprofile already has on PATH).
+export PATH="$HOME/.local/bin:$PATH"
+if ! command -v herdr >/dev/null 2>&1 && [[ ! `uname` =~ "Darwin" ]]; then
+  echo "-----> Installing herdr..."
+  curl -fsSL https://herdr.dev/install.sh | sh
+fi
+
+# Seed a default config if missing, then wire up agent integrations
+if command -v herdr >/dev/null 2>&1; then
+  HERDR_CONFIG="$HOME/.config/herdr/config.toml"
+  if [ ! -e "$HERDR_CONFIG" ]; then
+    echo "-----> Seeding herdr default config..."
+    mkdir -p "$(dirname "$HERDR_CONFIG")"
+    herdr --default-config > "$HERDR_CONFIG"
   fi
+  echo "-----> Installing herdr agent integration for Claude Code..."
+  herdr integration install claude 2>/dev/null
 fi
 
 # === 9. WSL: place the WezTerm config on the Windows host. Windows apps can't
